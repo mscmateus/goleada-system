@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	<style>
+		@font-face {
+			font-family: 'Hanken Grotesk';
+			src: local('Hanken Grotesk'), url(../fonts/HankenGrotesk-VariableFont_wght.ttf) format('truetype');
+		}
+
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #ffffff;
+			padding: 0;
+			margin: 0;
+			text-align: center;
+		}
+
+		.h1 {
+			color: #ffffff;
+			padding: 0;
+			line-break: unset;
+			font-size: 22px;
+		}
+
+		.h2 {
+			color: #224B89;
+			padding: 0;
+			font-size: 22px;
+		}
+
+		p {
+			color: #000000;
+		}
+
+		.cabecalho {
+			padding: 20px;
+			background-color: #224B89;
+			text-align: center;
+		}
+
+		.information {
+			padding: 10px;
+			flex-direction: column;
+			margin-left: 15%;
+			margin-right: 15%;
+			text-align: center;
+		}
+
+		.logo {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
+		.btn {
+			background-color: #224B89;
+			border-radius: 4px;
+			color: white;
+			padding: 10px;
+			font-size: 15px;
+			text-align: center;
+			text-decoration: none;
+			margin-bottom: 20px;
+			display: inline-block;
+			text-transform: uppercase;
+			border: 0;
+			box-shadow: none;
+			cursor: pointer;
+		}
+
+		
+
+		.codigo-container {
+			border: 1px solid #727272;
+			background-color: #f0f0f0;
+			margin: 0.10em;
+			margin-top: 1em;
+         	margin-bottom: 1em;
+			padding: 0.25em;
+			border-radius: 4px;
+			color: #224B89;
+			font-size: xx-large;
+		}
+
+		.codigo {
+			border: 1px solid #224B89;
+		}
+	</style>
+</head>
+
+<body class="centro">
+	<div class="cabecalho">
+		<h1 class="h1">ESTADO DO ACRE</h1>
+		<h1 class="h1">SECRETARIA DE ESTADO DA FAZENDA</h1>
+	</div>
+	<div class="information">
+		<h1 class="h2">Olá, ${name}!</h1>
+		<p>${message}</p>
+		<p>Seu código de confirmação é:</p>
+		<span class="codigo-container">${code}</span>
+		<p>Caso não tenha realizado essa solicitação, basta ignorar esse email.</p>
+		<p><small>Este é um e-mail gerenciado automaticamente, não o responda.</small></p>
+	</div>
+</body>
+
+</html>
