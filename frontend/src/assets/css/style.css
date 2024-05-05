@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: local('Hanken Grotesk'), url(../fonts/HankenGrotesk-VariableFont_wght.ttf) format('truetype');
+}
+
+@import '@sweetalert2/themes/dark/dark.scss';
