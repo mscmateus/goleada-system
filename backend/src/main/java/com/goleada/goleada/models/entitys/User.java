@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.goleada.goleada.models.enums.GoleadaRole;
+import com.goleada.goleada.models.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -112,11 +112,11 @@ public class User extends AbstractEntity implements UserDetails {
     private Boolean locked;
 
     /**
-     * Perfil do usuario no goleada
+     * Perfil do usuarioF
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private GoleadaRole role;
+    private Role role;
 
     // @ManyToOne
     // private List<ClubUser> clubRoles;

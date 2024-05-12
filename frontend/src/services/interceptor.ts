@@ -1,11 +1,11 @@
 import axios from 'axios';
 import TokenService from './token.service';
 import { Console } from 'console';
-import { Auth } from '../models/entidades/auth';
 import { redirect } from 'react-router-dom';
 import AuthService from './auth.service';
 import { isUrlPublica } from './urls-publicas';
 import Swal from "sweetalert2";
+import { Auth } from '../models/entity/auth';
 
 const instance = axios.create({
 	baseURL: 'http://localhost:8080/',

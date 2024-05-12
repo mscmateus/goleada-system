@@ -4,8 +4,6 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { AlteracaoEmailDto } from '../../../models/DTOs/alteracaoEmailDto';
-import { CodigoConfirmacaoDto } from '../../../models/DTOs/codigoConfirmacaoDto';
 import UsuarioService from '../../../services/account.service';
 import PublicService from '../../../services/public.service';
 import checkoutFormModel from './FormModel/checkoutFormModel';
@@ -15,6 +13,8 @@ import ConfirmationCodeForm from './Forms/ConfirmationCodeForm';
 import EmailForm from './Forms/EmailForm';
 import PasswordForm from './Forms/PasswordForm';
 import Success from './Success/Success';
+import { ConfirmationCodeDto } from '../../../models/dto/confirmationCodeDto';
+import { EmailChangeDto } from '../../../models/dto/emailChageDto';
 
 const steps = ["Novo Email", "Confirmação", "Senha"];
 const { formId, formField } = checkoutFormModel;
@@ -31,7 +31,7 @@ function _renderStepContent(step: number) {
    }
 }
 
-export default function AlterarEmail() {
+export default function EmailChange() {
 
    const [activeStep, setactiveStep] = React.useState(0);
    const currentValidationSchema = validationSchema[activeStep];
@@ -40,13 +40,13 @@ export default function AlterarEmail() {
 
    async function _submitForm(values: any, actions: any) {
       console.log("Ultima etapa")
-      let alteracaoEmail: AlteracaoEmailDto = {
-         codigo: values.codigo,
+      let alteracaoEmail: EmailChangeDto = {
+         code: values.codigo,
          email: values.email,
-         senha: values.senha
+         password: values.senha
       }
       console.log(alteracaoEmail)
-      UsuarioService.alteraEmail(alteracaoEmail)
+      UsuarioService.emailChange(alteracaoEmail)
          .then((e: any) => {
             console.log(e)
             MySwal.fire('Alteração de e-mail', e, 'success')
@@ -71,7 +71,7 @@ export default function AlterarEmail() {
          if (activeStep === 0) {
             console.log("etapa 0")
             actions.setSubmitting(true);
-            UsuarioService.enviaCodigoAlteracaoEmail(values.email)
+            UsuarioService.sendEmailChangeCode(values.email)
                .then((e: any) => {
                   console.log(e)
                   MySwal.fire('Código de Confirmação', e, 'success')
@@ -86,12 +86,12 @@ export default function AlterarEmail() {
          } else if (activeStep === 1) {
             console.log("etapa 1")
             actions.setSubmitting(true);
-            let codigoConfirmacao: CodigoConfirmacaoDto = {
-               codigo: parseInt(values.codigo),
+            let codigoConfirmacao: ConfirmationCodeDto = {
+               code: parseInt(values.codigo),
                email: values.email,
-               eTipoCodigoConfirmacao: 'ALTERACAO_EMAIL'
+               confirmationType: 'EMAIL_ALTERATION'
             }
-            PublicService.validaCodigoConfirmacao(codigoConfirmacao)
+            PublicService.valideConfirmationCode(codigoConfirmacao)
                .then((e: any) => {
                   MySwal.fire('Código de Confirmação', e, 'success')
                   setactiveStep(activeStep + 1);

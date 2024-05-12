@@ -17,7 +17,7 @@ import com.goleada.goleada.services.AuthService;
 
 @RestController
 @RequestMapping
-public class Auth {
+public class AuthController {
 
     @Autowired
     AuthService authService;
@@ -55,4 +55,5 @@ public class Auth {
     private boolean checkIfParamsIsNotNull(String username, String refreshToken) {
         return refreshToken == null || refreshToken.isBlank() || username == null || username.isBlank();
     }
+    
 }

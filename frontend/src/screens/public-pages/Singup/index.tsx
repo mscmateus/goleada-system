@@ -13,7 +13,6 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import PessoaFisicaCadastroDto from "../../../models/DTOs/pessoaFisicaCadastroDto";
 import PublicService from "../../../services/public.service";
 import checkoutFormModel from "./FormModel/checkoutFormModel";
 import formInitialValues from "./FormModel/formInitialValues";
@@ -25,9 +24,9 @@ import TermosConcordancias from "./Forms/TermosConcordancias";
 import InformacoesPessoaisForm from "./Forms/InformacoesPessoaisForm";
 import SignupSuccess from "./SignupSuccess/SignupSuccess";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Logo from "../../../assets/imgs/nota-premiada-logo.svg"
-import EntidadeSocialForm from './Forms/EntidadeSocialForm';
+import Logo from "../../../assets/imgs/nota-premiada-logo.svg";
 import BaseLayout from '../../../layouts/BaseLayout';
+import User from '../../../models/entity/user';
 
 
 function Copyright() {
@@ -53,7 +52,7 @@ const steps = ["Dados Pessoais", "Endereço", "Entidade Social", "E-mail e senha
 const { formId, formField } = checkoutFormModel;
 
 
-export default function CadastreSe() {
+export default function Singup() {
 
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
@@ -68,26 +67,21 @@ export default function CadastreSe() {
       case 1:
         return <EnderecoForm formField={formField} />;
       case 2:
-        return <EntidadeSocialForm formField={formField} />;
-      case 3:
         return <EmailSenhaForm formField={formField} />;
-      case 4:
+      case 3:
         return <CodigoConfirmacaoForm formField={formField} />;
-      case 5:
+      case 4:
         return <TermosConcordancias formField={formField} />;
       default:
         throw new Error("Etapa desconhecida");
     }
   }
 
-  async function _submitForm(values: PessoaFisicaCadastroDto, actions: any) {
+  async function _submitForm(values: User, actions: any) {
     values.cpf = values.cpf.replace(/[^\d]+/g, '')
-    values.cep = values.cep.replace(/[^\d]+/g, '')
-    values.telefone = values.telefone.replace(/[^\d]+/g, '')
-    values.telefoneSecundario = values.telefoneSecundario?.replace(/[^\d]+/g, '')
 
-    const novaPessoaFisica: PessoaFisicaCadastroDto = { ...values } as PessoaFisicaCadastroDto;
-    PublicService.cadastrar(novaPessoaFisica)
+    const novaPessoaFisica: User = { ...values } as User;
+    PublicService.singup(novaPessoaFisica)
       .then(() => {
         setactiveStep(activeStep + 1);
         actions.setSubmitting(false);
@@ -109,7 +103,7 @@ export default function CadastreSe() {
     } else {
       if (activeStep === 3) {
         actions.setSubmitting(true);
-        PublicService.enviaCodigoConfirmacaoEmail(values.email, values.nomeCompleto)
+        PublicService.sendConfirmationEmail(values.email, values.nomeCompleto)
           .then((e: any) => {
             MySwal.fire('Confirmação de E-mail', e, 'success')
             setactiveStep(activeStep + 1);

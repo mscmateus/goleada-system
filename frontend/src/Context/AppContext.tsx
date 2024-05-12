@@ -1,12 +1,12 @@
 import { createContext } from 'react';
-import { Usuario } from '../models/entidades/usuario';
+import User from '../models/entity/user';
 
 interface AppContextProps {
-   usuario: Usuario;
-   toggleUsuario: (usuario: Usuario) => void;
+   usuario: User;
+   toggleUsuario: (usuario: User) => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
-   usuario: {} as Usuario,
+   usuario: {} as User,
    toggleUsuario: () => { }
 });

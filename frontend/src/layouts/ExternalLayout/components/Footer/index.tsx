@@ -16,7 +16,6 @@ import {
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import Logo from "../../../../assets/imgs/nota-premiada-logo.svg";
-import { ItemLista } from "../../../../screens/publicas/ConhecaPrograma/style/style";
 import { useNavigate } from "react-router-dom";
 import { ListItemButton } from "@mui/material";
 

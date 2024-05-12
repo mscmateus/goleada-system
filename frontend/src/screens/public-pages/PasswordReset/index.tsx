@@ -13,8 +13,6 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { RedefinicaoSenhaDto } from "../../../models/DTOs/redefinicaoSenhaDto";
-import { CodigoConfirmacaoDto } from "../../../models/DTOs/codigoConfirmacaoDto";
 import PublicService from "../../../services/public.service";
 import checkoutFormModel from "./FormModel/checkoutFormModel";
 import formInitialValues from "./FormModel/formInitialValues";
@@ -23,6 +21,8 @@ import ConfirmationCodeForm from "./Forms/ConfirmationCodeForm";
 import EmailForm from "./Forms/EmailForm";
 import PasswordForm from "./Forms/PasswordForm";
 import RedefinicaoSucesso from "./RedefinicaoSucesso/SignupSuccess";
+import { ConfirmationCodeDto } from "../../../models/dto/confirmationCodeDto";
+import { PasswordResetDto } from "../../../models/dto/passwordResetDto";
 
 function Copyright() {
   return (
@@ -61,7 +61,7 @@ function _renderStepContent(step: number) {
   }
 }
 
-export default function RedefinicaoSenha() {
+export default function PasswordReset() {
 
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
@@ -70,8 +70,8 @@ export default function RedefinicaoSenha() {
   const isLastStep = activeStep === steps.length - 1;
 
   async function _submitForm(values: any, actions: any) {
-    const redefinicaoSenha: RedefinicaoSenhaDto = { ...values, novaSenha: values.senha };
-    PublicService.redefineSenha(redefinicaoSenha)
+    const redefinicaoSenha: PasswordResetDto = { ...values, novaSenha: values.senha };
+    PublicService.passwordReset(redefinicaoSenha)
       .then(() => {
         setactiveStep(activeStep + 1);
         actions.setSubmitting(false);
@@ -88,13 +88,13 @@ export default function RedefinicaoSenha() {
     } else {
       if (activeStep === 0) {
         //enviar codigo de validação
-        PublicService.enviaCodigoRedefinicaoSenha(values.email)
+        PublicService.passwordResetRequest(values.email)
         MySwal.fire('Código de Confirmação', 'Um código de confirmação de email foi enviado, verifique seu email', 'info')
         setactiveStep(activeStep + 1);
       } else if (activeStep === 1) {
         //valida codigo de confirmação
-        let codigoConfirmacao: CodigoConfirmacaoDto = { ...values, eTipoCodigoConfirmacao: 'REDEFINICAO_SENHA' }
-        PublicService.validaCodigoConfirmacao(codigoConfirmacao)
+        let codigoConfirmacao: ConfirmationCodeDto = { ...values, eTipoCodigoConfirmacao: 'REDEFINICAO_SENHA' }
+        PublicService.valideConfirmationCode(codigoConfirmacao)
           .then(() => {
             setactiveStep(activeStep + 1);
             MySwal.fire('Código válido', 'Seu código foi validado com sucesso!', 'info')

@@ -2,11 +2,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import tokenService from "../../services/token.service";
 import UsuarioService from "../../services/account.service";
-import { Usuario } from "../../models/entidades/usuario";
 import { ContentPasteOffSharp } from "@mui/icons-material";
 import LoadingPage from "../../components/LoadingPage";
 import AuthService from "../../services/auth.service";
-import { Auth } from "../../models/entidades/auth";
+import { Auth } from "../../models/entity/auth";
 
 interface Props {
   children: React.ReactElement;

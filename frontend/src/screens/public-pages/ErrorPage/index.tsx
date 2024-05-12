@@ -5,7 +5,7 @@ interface Props {
   titulo: string;
   mensagem: string;
 }
-export default function PaginaErro(props: Props) {
+export default function ErrorPage(props: Props) {
   return (
     <Grid container component="main" sx={{ flexGrow: "1" }}>
       <h1>{props.titulo}</h1>

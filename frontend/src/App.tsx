@@ -8,11 +8,11 @@ import { LocalizationProvider, ptBR } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import br from 'dayjs/locale/pt-br';
 import { AppContext } from "./Context/AppContext";
-import { Usuario } from "./models/entidades/usuario";
+import User from "./models/entity/user";
 
 function App() {
   const [theme, setTheme] = React.useState(LightTheme);
-  const [usuario, setUsuario] = React.useState<Usuario>({} as Usuario);
+  const [usuario, setUsuario] = React.useState<User>({} as User);
 
 
   const toggleTheme = (theme: string) => {
@@ -26,14 +26,14 @@ function App() {
       toggleTheme(storageTheme)
   })
 
-  const toggleUsuario = (usuario: Usuario) => {
+  const toggleUsuario = (usuario: User) => {
     setUsuario(usuario);
   };
 
   return (
     <AppContext.Provider value={{ usuario, toggleUsuario }}>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={br} localeText={ptBR.components.MuiLocalizationProvider.defaultProps.localeText}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"br"} localeText={ptBR.components.MuiLocalizationProvider.defaultProps.localeText}>
           <ThemeProvider theme={theme}>
             <Routers />
           </ThemeProvider>

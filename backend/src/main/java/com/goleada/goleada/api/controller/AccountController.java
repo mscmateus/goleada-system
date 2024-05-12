@@ -39,15 +39,9 @@ public class AccountController {
 		return new ResponseEntity<List<String>>(user.getStringAuthorities(), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<?> accountDelete(@AuthenticationPrincipal User user) {
-		userService.removeById(user.getId());
-		return new ResponseEntity<>("Conta excluida com sucesso!", HttpStatus.OK);
-	}
-
 	// Para a confirmação do email na hora da alteração
 	@PostMapping("/change-email/request")
-	public ResponseEntity<?> enviaConfirmacaoAlteracaoEmail(@AuthenticationPrincipal User user,
+	public ResponseEntity<?> sendEmailChangeCode(@AuthenticationPrincipal User user,
 			@RequestParam("email") String enderecoEmail) {
 		userService.enviaCodigoAlteracaoEmail(enderecoEmail, user.getId());
 		return new ResponseEntity<String>("E-mail enviado com sucesso!", HttpStatus.OK);
@@ -55,17 +49,23 @@ public class AccountController {
 
 	// Altera o email do user
 	@PostMapping("/change-email")
-	public ResponseEntity<?> alteraEmailDoUser(@RequestBody EmailUpdateDto emailUpdate,
+	public ResponseEntity<?> emailChange(@RequestBody EmailUpdateDto emailUpdate,
 			@AuthenticationPrincipal User user) {
 		userService.updateEmail(emailUpdate, user.getId());
 		return new ResponseEntity<String>("Email alterado com sucesso!", HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/change-password")
-	public ResponseEntity<String> alterSenhaDoUser(@RequestBody PasswordUpdateDto passwordReset,
+	public ResponseEntity<String> passwordChange(@RequestBody PasswordUpdateDto passwordReset,
 			@AuthenticationPrincipal User user) {
 		userService.updatePassword(passwordReset, user.getId());
 		return new ResponseEntity<String>("Senha alterada com sucesso!", HttpStatus.OK);
+	}
+
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> accountDelete(@AuthenticationPrincipal User user) {
+		userService.removeById(user.getId());
+		return new ResponseEntity<>("Conta excluida com sucesso!", HttpStatus.OK);
 	}
 
 }

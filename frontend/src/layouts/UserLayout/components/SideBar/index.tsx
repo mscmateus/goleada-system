@@ -160,7 +160,7 @@ export default function NotaAppBar({ open, toggleDrawer }: NotaAppBarProps) {
                 mb: 1,
               }}
             >
-              {usuario.apelido[0].toUpperCase() + usuario.apelido.substring(1)}
+              {usuario.username}
             </Typography>
             <Typography sx={{ fontSize: 12, color: "#fff" }}>
               Ver Perfil

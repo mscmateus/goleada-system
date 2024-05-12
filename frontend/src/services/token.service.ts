@@ -1,5 +1,4 @@
-import { Auth } from "../models/entidades/auth";
-import { Usuario } from "../models/entidades/usuario";
+import { Auth } from "../models/entity/auth";
 import AuthService from "./auth.service";
 import UsuarioService from "./account.service";
 

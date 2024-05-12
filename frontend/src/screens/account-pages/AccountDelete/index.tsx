@@ -10,7 +10,7 @@ import UsuarioService from '../../../services/account.service';
 import AuthService from '../../../services/auth.service';
 import LoadingPage from '../../../components/LoadingPage';
 
-export default function ApagarConta() {
+export default function AccountDelete() {
    const MySwal = withReactContent(Swal);
    const [inLoading, setInLoading] = React.useState(false);
 
@@ -26,7 +26,7 @@ export default function ApagarConta() {
          /* Read more about isConfirmed, isDenied below */
          if (result.isDenied) {
             setInLoading(true)
-            UsuarioService.excluiConta()
+            UsuarioService.accountDelete()
                .then((e: any) => {
                   AuthService.logout()
                   setInLoading(false)

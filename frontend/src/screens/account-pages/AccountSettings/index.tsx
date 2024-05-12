@@ -7,7 +7,7 @@ import UsuarioService from '../../../services/account.service';
 import AuthService from '../../../services/auth.service';
 
 
-export default function configuracoes() {
+export default function AccountSettings() {
 
   const handleLogout = () => {
     AuthService.logout()

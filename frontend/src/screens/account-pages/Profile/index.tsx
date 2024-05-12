@@ -6,13 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import DateField from '../../../components/DateField';
 import LoadingPage from '../../../components/LoadingPage';
 import MaskField from '../../../components/MaskField';
-import { Usuario } from '../../../models/entidades/usuario';
 import UsuarioService from '../../../services/account.service';
 import EnderecoContato from './endereco';
+import User from '../../../models/entity/user';
 
 export default function MeusDados(props: any) {
    const navigate = useNavigate();
-   const [usuario, setUsuario] = useState({} as Usuario);
+   const [usuario, setUsuario] = useState({} as User);
    const [inLoading, setInLoading] = useState(true);
    useEffect(() => {
       UsuarioService.getUsuarioAutenticado()

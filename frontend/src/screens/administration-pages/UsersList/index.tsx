@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import UsuarioListItem from "../../../models/lista/usuarioListItem";
 import withReactContent from "sweetalert2-react-content";
 import UsuarioService from "../../../services/user.service";
 import Swal from "sweetalert2";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { Box, Button, Container, Grid, TextField } from "@mui/material";
-import { SearchPaper } from "../Regional/Regionais/style";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import UserListItem from "../../../models/listDto/userListItem";
+import { SearchPaper } from "../../../components/CardContainer";
 
-function Usuarios() {
-    const [data, setData] = useState<UsuarioListItem[]>([]);
+function UsersList() {
+    const [data, setData] = useState<UserListItem[]>([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);
     const [perPage, setPerPage] = useState(10);
@@ -36,7 +36,7 @@ function Usuarios() {
     }
 
     const handleDelete = useCallback(
-        (row: UsuarioListItem) => async () => {
+        (row: UserListItem) => async () => {
             MySwal.fire({
                 title: `Você realmente deseja excluir o usuário ${row.nomeCompleto}?`,
                 showConfirmButton: false,
@@ -64,33 +64,33 @@ function Usuarios() {
         [currentPage, perPage, totalRows]
     );
 
-    const columns: TableColumn<UsuarioListItem>[] = useMemo<any>(
+    const columns: TableColumn<UserListItem>[] = useMemo<any>(
         () => [
             {
                 name: "Id",
-                selector: (usuario: UsuarioListItem) => usuario.id,
+                selector: (usuario: UserListItem) => usuario.id,
                 sortable: true
             },
             {
                 name: "Nome Completo",
-                selector: (usuario: UsuarioListItem) => usuario.nomeCompleto,
+                selector: (usuario: UserListItem) => usuario.nomeCompleto,
                 sortable: true
             },
             {
                 name: "CPF",
-                selector: (usuario: UsuarioListItem) => usuario.cpf,
+                selector: (usuario: UserListItem) => usuario.cpf,
                 sortable: false,
-                cell: (usuario: UsuarioListItem) => formatCpf(usuario.cpf)
+                cell: (usuario: UserListItem) => formatCpf(usuario.cpf)
             },
-            {
-                name: "Administrador",
-                selector: (usuario: UsuarioListItem) => usuario.administrador,
-                sortable: false,
-                cell: (usuario: UsuarioListItem) => usuario.administrador ? <CheckCircleIcon color="action"></CheckCircleIcon> : <RadioButtonUncheckedIcon color="action"></RadioButtonUncheckedIcon>
-            },
+            // {
+            //     name: "Administrador",
+            //     selector: (usuario: UserListItem) => usuario.administrador,
+            //     sortable: false,
+            //     cell: (usuario: UserListItem) => usuario.administrador ? <CheckCircleIcon color="action"></CheckCircleIcon> : <RadioButtonUncheckedIcon color="action"></RadioButtonUncheckedIcon>
+            // },
             {
                 // eslint-disable-next-line react/button-has-type
-                cell: (usuario: UsuarioListItem) => <Grid container spacing={1} sx={{ width: '100%' }}>
+                cell: (usuario: UserListItem) => <Grid container spacing={1} sx={{ width: '100%' }}>
                     <Grid item xs={12} md={6} lg={6}><Button variant='contained'><EditIcon></EditIcon></Button></Grid >
                     <Grid item xs={12} md={6} lg={6}><Button variant='contained' color='error' onClick={handleDelete(usuario)}><DeleteIcon></DeleteIcon></Button></Grid >
                 </Grid >
@@ -146,7 +146,7 @@ function Usuarios() {
                     onChangeRowsPerPage={handlePerRowsChange}
                     onChangePage={handlePageChange}
                     selectableRows={false}
-                    // onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
+                // onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
                 />
             </SearchPaper>
         </Container>
@@ -154,4 +154,4 @@ function Usuarios() {
 
 }
 
-export default Usuarios;
+export default UsersList;

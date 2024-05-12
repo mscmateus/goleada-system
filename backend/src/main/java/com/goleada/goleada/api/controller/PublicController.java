@@ -59,9 +59,9 @@ public class PublicController {
     * End-point para envio do email de confirmação
     */
    @PostMapping("/singup/confirmation-email-request")
-   public ResponseEntity<?> enviaConfirmacaoEmail(@RequestParam("email") String enderecoEmail,
-         @RequestParam String nome) {
-      userService.enviaConfirmacaoEmailNovoUsuario(enderecoEmail, nome);
+   public ResponseEntity<?> sendConfirmationEmail(@RequestParam("email") String enderecoEmail,
+         @RequestParam String name) {
+      userService.enviaConfirmacaoEmailNovoUsuario(enderecoEmail, name);
       return new ResponseEntity<String>("E-mail enviado com sucesso!", HttpStatus.OK);
    }
 

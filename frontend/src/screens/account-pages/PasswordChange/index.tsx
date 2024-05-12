@@ -19,7 +19,7 @@ const {
    confirmacaoNovaSenha,
    senha
 } = formField;
-export default function AlterarSenha() {
+export default function PasswordChange() {
    const MySwal = withReactContent(Swal);
    const [showNovaSenha, setShowNovaSenha] = React.useState(false);
    const [showConfirmacaoNovaSenha, setShowConfirmacaoNovaSenha] = React.useState(false);
@@ -27,9 +27,9 @@ export default function AlterarSenha() {
 
    const _handleSubmit = (values: any, actions: any) => {
       actions.setSubmitting(true);
-      UsuarioService.alteraSenha({
-         novaSenha: values.novaSenha,
-         senhaAtual: values.senha
+      UsuarioService.passwordChange({
+         newPassword: values.novaSenha,
+         currentPassword: values.senha
       })
          .then((e: any) => {
             MySwal.fire('Sucesso', e, 'success')

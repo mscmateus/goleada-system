@@ -27,7 +27,7 @@ export default function CodigoConfirmacaoForm(props: any) {
 
   const enviaCodigo = () => {
     bloqueiaReenvio()
-    PublicService.enviaCodigoConfirmacaoEmail(email.value, nomeCompleto.value)
+    PublicService.sendConfirmationEmail(email.value, nomeCompleto.value)
   }
 
   const bloqueiaReenvio = () => {

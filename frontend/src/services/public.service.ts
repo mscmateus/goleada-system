@@ -1,26 +1,24 @@
 
-import { CodigoConfirmacaoDto } from "../models/DTOs/codigoConfirmacaoDto";
-import PessoaFisicaCadastroDto from "../models/DTOs/pessoaFisicaCadastroDto";
-import { RedefinicaoSenhaDto } from "../models/DTOs/redefinicaoSenhaDto";
-import SorteioListItem from "../models/lista/sorteioListItem";
-import Pageable from "../models/pageable";
+import { ConfirmationCodeDto } from "../models/dto/confirmationCodeDto";
+import { PasswordResetDto } from "../models/dto/passwordResetDto";
+import User from "../models/entity/user";
 import api from "./interceptor";
 
 
-const cadastrar = (novaPessoaFisica: PessoaFisicaCadastroDto) =>
+const singup = (user: User) =>
     new Promise((resolve, reject) => {
         api
-            .post("/public/nova-conta", novaPessoaFisica)
+            .post("/singup", user)
             .then((res) => {
                 resolve(res.data)
             })
             .catch((e) => reject(e.response.data));
     });
 
-const enviaCodigoConfirmacaoEmail = (email: string, nome: string) =>
+const sendConfirmationEmail = (email: string, name: string) =>
     new Promise((resolve, reject) => {
         api
-            .post(`/public/nova-conta/enviar-confirmacao-email?email=${email}&nome=${nome}`)
+            .post(`/singup/confirmation-email-request?email=${email}&nome=${name}`)
             .then((res) => {
                 console.log(res)
                 resolve(res.data)
@@ -30,50 +28,40 @@ const enviaCodigoConfirmacaoEmail = (email: string, nome: string) =>
             });
     });
 
-const enviaCodigoRedefinicaoSenha = (email: string) =>
+const passwordResetRequest = (email: string) =>
     new Promise((resolve, reject) => {
         api
-            .post(`/public/redefinicao-senha/solicitacao?email=${email}`)
+            .post(`/password-reset/request?email=${email}`)
             .then((res) => {
                 resolve(res.data)
             })
             .catch((e) => reject(e.response.data));
     });
-const redefineSenha = (redefinicaoSenha: RedefinicaoSenhaDto) =>
+const passwordReset = (redefinicaoSenha: PasswordResetDto) =>
     new Promise((resolve, reject) => {
         api
-            .post(`/public/redefinicao-senha/redefinicao?`, redefinicaoSenha)
+            .post(`/password-reset/reset?`, redefinicaoSenha)
             .then((res) => {
                 resolve(res.data)
             })
             .catch((e) => reject(e.response.data));
     });
-const validaCodigoConfirmacao = (codigoConfirmacao: CodigoConfirmacaoDto) =>
+const valideConfirmationCode = (codigoConfirmacao: ConfirmationCodeDto) =>
     new Promise((resolve, reject) => {
         api
-            .post(`/public/validar-codigo`, codigoConfirmacao)
+            .post(`/code-validation`, codigoConfirmacao)
             .then((res) => {
                 resolve(res.data)
             })
             .catch((e) => reject(e.response.data));
     });
-const buscaSorteios = async (titulo: string = '', regional: string = '', dataInicio: string = '', dataTermino: string = '', sort: string = '', page: string = '', size: string = ''): Promise<Pageable<SorteioListItem>> => {
-    try {
-        const response = await api.get<Pageable<SorteioListItem>>(`/public/sorteio/realizados`,
-            { params: { titulo, regional, dataInicio, dataTermino, sort, page, size } });
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-}
 
 const PublicService = {
-    cadastrar,
-    enviaCodigoConfirmacaoEmail,
-    enviaCodigoRedefinicaoSenha,
-    redefineSenha,
-    validaCodigoConfirmacao,
-    buscaSorteios
+    singup,
+    sendConfirmationEmail,
+    passwordResetRequest,
+    passwordReset,
+    valideConfirmationCode
 };
 
 export default PublicService;

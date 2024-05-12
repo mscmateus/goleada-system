@@ -26,7 +26,7 @@ export default function ConfirmationCodeForm(props: any) {
 
    const enviaCodigo = () => {
       bloqueiaReenvio()
-      UsuarioService.enviaCodigoAlteracaoEmail(email.value)
+      UsuarioService.sendEmailChangeCode(email.value)
          .then((e: any) => {
             console.log(e)
             MySwal.fire('Código de Confirmação', e, 'success')

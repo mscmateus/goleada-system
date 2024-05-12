@@ -1,8 +1,6 @@
 import { redirect, useNavigate } from 'react-router-dom';
-import { Usuario } from '../models/entidades/usuario';
 import api from './interceptor';
 import TokenService from './token.service';
-import { RedefinicaoSenhaDto } from '../models/redefinicaoSenhaDto';
 
 const login = (username: string, password: string) =>
   new Promise((resolve, reject) => {
@@ -40,22 +38,6 @@ const getCurrentUser = () => {
   return TokenService.getAuth();
 };
 
-const solicitaRedefinicaoSenha = (email: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    api.post("/usuario/email/enviar-codigo-redefinicao?email=" + email).then((res) => resolve(res.data)).catch(reject)
-  })
-}
-const confirmaCodigoRedefinicaoSenha = (redefinicaoSenha: RedefinicaoSenhaDto): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    api.post("/usuario/email/redefine-senha", redefinicaoSenha).then((res) => resolve(res.data)).catch(reject)
-  })
-}
-const redefinicaoSenha = (redefinicaoSenhaDto: RedefinicaoSenhaDto): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    api.post("/usuario/email/confirma-codigo-redefinicao-senha", redefinicaoSenhaDto).then((res) => resolve(res.data)).catch(reject)
-  })
-}
-
 
 
 const AuthService = {
@@ -63,10 +45,7 @@ const AuthService = {
   login,
   logout,
   getCurrentUser,
-  authRefresh,
-  solicitaRedefinicaoSenha,
-  confirmaCodigoRedefinicaoSenha,
-  redefinicaoSenha
+  authRefresh
 };
 
 export default AuthService;

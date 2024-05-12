@@ -9,14 +9,14 @@ import lombok.Getter;
  * de acesso no usuario e grupos de usuario
  */
 @Getter
-public enum GoleadaRole implements GrantedAuthority {
-    GOLEADA_ADMINISTRATOR("GOLEADA_ADMINISTRATOR", "Administrator do Goleada"),
-    GOLEADA_OPERATOR("GOLEADA_OPERATOR", "Operador do Goleada");
+public enum Role implements GrantedAuthority {
+    ADMINISTRATOR("ADMINISTRATOR", "Administrator do sistema"),
+    OPERATOR("OPERATOR", "Operador do sistema");
 
     private String authority;
     private String title;
 
-    private GoleadaRole(String authority, String titulo) {
+    private Role(String authority, String titulo) {
         this.authority = authority;
         this.title = titulo;
     }

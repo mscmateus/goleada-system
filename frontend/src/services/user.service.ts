@@ -1,13 +1,13 @@
 
-import UsuarioListItem from '../models/lista/usuarioListItem';
-import Pageable from '../models/pageable';
 
+import UserListItem from '../models/listDto/userListItem';
+import Pageable from '../models/pageable';
 import api from './interceptor';
 
-const buscaUsuarios = async (busca: string = "", sort: string = "", page: string = '', size: string = '', direction: 'ASC' | 'DESC' | '' = ''): Promise<Pageable<UsuarioListItem>> => {
+const buscaUsuarios = async (busca: string = "", sort: string = "", page: string = '', size: string = '', direction: 'ASC' | 'DESC' | '' = ''): Promise<Pageable<UserListItem>> => {
   sort = sort + ',' + direction
   try {
-    const response = await api.get<Pageable<UsuarioListItem>>(`/usuario/`, {
+    const response = await api.get<Pageable<UserListItem>>(`/user/`, {
       params: { busca: busca, sort: sort, page: page, size: size }
     });
 
@@ -19,7 +19,7 @@ const buscaUsuarios = async (busca: string = "", sort: string = "", page: string
 }
 const deletaUsuario = async (id: number) => {
   try {
-    const response = await api.delete<Pageable<UsuarioListItem>>(`/usuario/${id}`);
+    const response = await api.delete<Pageable<UserListItem>>(`/user/${id}`);
 
     return response.data;
   } catch (error) {
